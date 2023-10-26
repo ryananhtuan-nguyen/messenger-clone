@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return new NextResponse('Missing info', { status: 400 })
     }
 
-    const hashedPassword = await Bun.password.hash(password)
+    const hashedPassword = await bcrypt.hash(password, 12)
     const user = await prisma.user.create({
       data: {
         email,
