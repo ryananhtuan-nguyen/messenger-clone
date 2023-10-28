@@ -13,22 +13,31 @@ import { useRouter } from 'next/navigation'
 type Variant = 'LOGIN' | 'REGISTER'
 
 const AuthForm = () => {
+  //State to control current status LOGIN or REGISTER
   const [variant, setVariant] = useState<Variant>('LOGIN')
+  //To check if the page is in loading state
   const [isLoading, setIsLoading] = useState(false)
+  //Session for current User
   const session = useSession()
+  //For redirecting purposes
   const router = useRouter()
 
+  //useEffect to check if the session is authenticated, then redirect accordingly
   useEffect(() => {
     if (session?.status === 'authenticated') {
       router.push('/users')
     }
   }, [session?.status, router])
+
+  //set the status to either LOGIN or REGISTER
+  //saved in useCallback so it wont get rebuilt everytime the page got rerendered
   const toggleVariant = useCallback(() => {
     if (variant === 'LOGIN') {
       setVariant('REGISTER')
     } else setVariant('LOGIN')
   }, [variant])
 
+  //useForm hook to manage form data
   const {
     register,
     handleSubmit,
@@ -41,35 +50,48 @@ const AuthForm = () => {
     },
   })
 
+  //Handling the submit button
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    //first set isLoading state to true, data is now fetching from server
     setIsLoading(true)
 
+    //If current status is REGISTER, send data to create a new user
     if (variant === 'REGISTER') {
       //Axios Register
       axios
         .post('/api/register', data)
+        // .then() => sign the user in as soon as the registration is done
         .then(() => signIn('credentials', data))
+        // .catch() => displaying error if the registration failed
         .catch(() => toast.error('Something went wrong!'))
+        // reset the loading states after the registration either fail or success
         .finally(() => setIsLoading(false))
     }
 
+    //if current status is LOGIN, send data to get the user's info
     if (variant === 'LOGIN') {
       //NextAuth SignIn
       signIn('credentials', { ...data, redirect: false })
+        // .then() => display error if credentials are invalid
         .then((callback) => {
           if (callback?.error) {
             toast.error('Invalid credentials')
           }
+          // or display Logged in if everything went well
           if (callback?.ok && !callback?.error) {
             toast.success('Logged in!')
           }
         })
+        // .finally() reset loading state
         .finally(() => setIsLoading(false))
     }
   }
 
+  //Handling clicking GitHub or Google login button
+  //set Loading state to true
   const socialAction = (action: string) => {
     setIsLoading(true)
+    //redirect to the corresponding login page
     signIn(action, { redirect: false })
       .then((cb) => {
         if (cb?.error) {
@@ -79,6 +101,7 @@ const AuthForm = () => {
           toast.success('Logged in!')
         }
       })
+      //also reset loading state
       .finally(() => setIsLoading(false))
 
     //NextAuth Social Sign In
