@@ -6,7 +6,9 @@ interface AuthContextProps {
 }
 
 import React from 'react'
-
+/*
+---------------------------------Wrapping all pages with SessionProvider--------------------------------
+ */
 const AuthContext = ({ children }: AuthContextProps) => {
   return <SessionProvider>{children}</SessionProvider>
 }
