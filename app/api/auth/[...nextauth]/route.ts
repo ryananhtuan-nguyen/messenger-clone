@@ -27,31 +27,38 @@ export const authOptions: AuthOptions = {
         password: { label: 'password', type: 'password' },
       },
       async authorize(credentials) {
+        //check if email or password is empty
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Invalid Credentials')
         }
+        //if email and password is entered, find the user
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,
           },
         })
 
+        //check if user or hasedpassword does not exist
         if (!user || !user?.hashedPassword) {
           throw new Error('Invalid Credentials')
         }
 
+        //compare the encrypted password
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
           user.hashedPassword
         )
+
+        //if password does not match throw error
         if (!isCorrectPassword) {
           throw new Error('Invalid credentials')
         }
-
+        //if everything is ok return the user
         return user
       },
     }),
   ],
+  //this part is only for debugging in development mode
   debug: process.env.NODE_ENV === 'development',
   session: {
     strategy: 'jwt',
