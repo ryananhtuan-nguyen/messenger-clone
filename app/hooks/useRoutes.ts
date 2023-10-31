@@ -6,9 +6,12 @@ import { signOut } from 'next-auth/react'
 import useConversation from './useConversation'
 
 const useRoutes = () => {
+  //grabbing pathname from URL
   const pathname = usePathname()
+  //deconstruct and get conversationId from custom hook
   const { conversationId } = useConversation()
 
+  //constructing different routes for the navigation icons
   const routes = useMemo(
     () => [
       {
@@ -32,6 +35,8 @@ const useRoutes = () => {
     ],
     [pathname, conversationId]
   )
+
+  //returning routes as an array for later use
   return routes
 }
 
