@@ -4,6 +4,8 @@ import useConversation from '../hooks/useConversation'
 import EmptyState from '../components/EmptyState'
 
 const Home = () => {
+  // get isOpen from custom hook
+  //Hide empty state if isOpen is true
   const { isOpen } = useConversation()
   return (
     <div
