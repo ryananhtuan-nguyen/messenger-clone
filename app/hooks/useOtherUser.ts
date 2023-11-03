@@ -18,7 +18,11 @@ const useOtherUser = (
     const otherUser = conversation.users.filter(
       (user) => user.email !== currentUserEmail
     )
-  }, [])
+
+    return otherUser
+  }, [session?.data?.user?.email, conversation.users])
+
+  return otherUser
 }
 
 export default useOtherUser
