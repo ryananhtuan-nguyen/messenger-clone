@@ -18,6 +18,8 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
   onClick,
   active,
 }) => {
+  //if there is an onClick handler passed use it
+  //since the onClick prop is optional
   const handleClick = () => {
     if (onClick) return onClick()
   }
