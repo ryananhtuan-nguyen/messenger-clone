@@ -14,15 +14,20 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
+  //Handle clicking on an user's name
   const handleClick = useCallback(() => {
+    //notify loading state
     setIsLoading(true)
+    //post the request with the other user's id
     axios
       .post('/api/conversations', {
         userId: data.id,
       })
+      //redirect ( open the convo box) with the clicked user
       .then((data) => {
         router.push(`/conversations/${data.data.id}`)
       })
+      //remove loading state
       .finally(() => setIsLoading(false))
   }, [data, router])
 
