@@ -7,7 +7,8 @@ import MobileItem from './MobileItem'
 const MobileFooter = () => {
   const routes = useRoutes()
   const { isOpen } = useConversation()
-
+  //if the conversation is already opened
+  //do not render this component
   if (isOpen) {
     return null
   }
