@@ -10,6 +10,7 @@ const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({
   icon: Icon,
   onClick,
 }) => {
+  //getting onlick as props from whichever component is using Button component
   return (
     <button
       type="button"
