@@ -13,10 +13,12 @@ interface ConversationListProps {
 const ConversationList: React.FC<ConversationListProps> = ({
   initialItems,
 }) => {
+  //make a state for the convo list
   const [items, setItems] = useState(initialItems)
 
   const router = useRouter()
 
+  //get the id && is Open to display accordingly
   const { conversationId, isOpen } = useConversation()
 
   return (

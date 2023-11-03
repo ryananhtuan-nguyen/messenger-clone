@@ -8,6 +8,8 @@ const ConversationsLayout = async ({
 }: {
   children: React.ReactNode
 }) => {
+  //This is the layout for /conversations
+  //get data and pass down as props
   const conversations = await getConversations()
 
   return (
