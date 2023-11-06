@@ -1,6 +1,7 @@
 import getConversationById from '@/app/actions/getConversationById'
 import getMessages from '@/app/actions/getMessages'
 import EmptyState from '@/app/components/EmptyState'
+import { Header } from './components/Header'
 
 interface IParams {
   conversationId: string
