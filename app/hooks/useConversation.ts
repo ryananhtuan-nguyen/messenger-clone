@@ -10,6 +10,7 @@ const useConversation = () => {
     if (!params?.conversationId) {
       return ''
     }
+    return params.conversationId as string
   }, [params?.conversationId])
   //variable to control the opening conversation
   const isOpen = useMemo(() => !!conversationId, [conversationId])
