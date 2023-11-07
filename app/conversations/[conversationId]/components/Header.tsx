@@ -12,7 +12,7 @@ interface HeaderProps {
     users: User[]
   }
 }
-export const Header = ({ conversation }: HeaderProps) => {
+const Header = ({ conversation }: HeaderProps) => {
   const otherUser = useOtherUser(conversation)
 
   const statusText = useMemo(() => {
@@ -49,3 +49,5 @@ export const Header = ({ conversation }: HeaderProps) => {
     </div>
   )
 }
+
+export default Header
