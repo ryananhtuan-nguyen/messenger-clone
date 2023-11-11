@@ -23,8 +23,11 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
   }, [conversationId])
 
   useEffect(() => {
+    //subscribe to the channel
     pusherClient.subscribe(conversationId)
     bottomRef?.current?.scrollIntoView()
+
+    //Handle new messages sent
 
     const messageHandler = (message: FullMessageType) => {
       axios.post(`/api/conversations/${conversationId}/seen`)
@@ -41,12 +44,30 @@ const Body: React.FC<BodyProps> = ({ initialMessages }) => {
       bottomRef?.current?.scrollIntoView()
     }
 
-    pusherClient.bind('message:new', messageHandler)
+    //Handle seen messages update
+
+    const updateMessageHandler = (newMessage: FullMessageType) => {
+      setMessages((current) =>
+        current.map((currentMessage) => {
+          if (currentMessage.id === newMessage.id) {
+            return newMessage
+          }
+
+          return currentMessage
+        })
+      )
+    }
+
+    //bind all events
+
+    pusherClient.bind('messages:new', messageHandler)
+    pusherClient.bind('message:update', updateMessageHandler)
 
     //unmount
     return () => {
       pusherClient.unsubscribe(conversationId)
-      pusherClient.unbind('message:new', messageHandler)
+      pusherClient.unbind('messages:new', messageHandler)
+      pusherClient.unbind('message:update', updateMessageHandler)
     }
   }, [conversationId])
 
