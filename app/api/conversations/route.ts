@@ -42,14 +42,12 @@ export async function POST(request: Request) {
           name,
           isGroup,
           users: {
-            //connect all users included in the request body
             connect: [
               ...members.map((member: { value: string }) => ({
-                id: members.value,
+                id: member.value,
               })),
-              //with the current user created the convo
               {
-                id: currentUser,
+                id: currentUser.id,
               },
             ],
           },
@@ -118,6 +116,7 @@ export async function POST(request: Request) {
     //return the newly created convo
     return NextResponse.json(newConversation)
   } catch (error: any) {
+    console.log(error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
