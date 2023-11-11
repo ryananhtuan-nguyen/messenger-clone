@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import Modal from '../Modal'
 import Input from '../inputs/Input'
 import Image from 'next/image'
+import { CldUploadButton } from 'next-cloudinary'
 
 interface SettingsModalProps {
   currentUser: User
@@ -91,6 +92,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     }
                     alt="avatar"
                   />
+                  <CldUploadButton
+                    options={{ maxFiles: 1 }}
+                    onUpload={handleUpload}
+                    uploadPreset="messenger"
+                  ></CldUploadButton>
                 </div>
               </div>
             </div>
