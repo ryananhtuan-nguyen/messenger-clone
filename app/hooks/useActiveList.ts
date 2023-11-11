@@ -4,7 +4,7 @@ interface ActiveListStore {
   members: string[]
   add: (id: string) => void
   remove: (id: string) => void
-  set: (id: string[]) => void
+  set: (ids: string[]) => void
 }
 
 const useActiveList = create<ActiveListStore>((set) => ({
