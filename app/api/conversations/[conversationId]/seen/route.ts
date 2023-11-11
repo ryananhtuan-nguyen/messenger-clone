@@ -73,7 +73,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     //trigger channel
     await pusherServer.trigger(
       conversationId!,
-      'messages:update',
+      'message:update',
       updatedMessage
     )
 
