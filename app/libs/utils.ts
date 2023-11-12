@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 export function constructMetadata({
   title = 'MessengerClone - a simple realtime messaging app',
   description = 'MessengerClone is a chat app inspired by Facebook messenger, created just for learning purposes',
-  image = '/thumbnail.png',
+  image = '/thumbnail.jpg',
   icons = '/favicon.ico',
   noIndex = false,
 }: {
