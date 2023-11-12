@@ -33,5 +33,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - Zustand: A react state management library.
 
 ## You will need an .env file with your own setup to run the app in your localhost
-
+ # Check the env.example file to see what you would need for the env file
 
