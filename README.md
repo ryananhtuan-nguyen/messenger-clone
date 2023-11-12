@@ -1,9 +1,11 @@
 ## Getting Started
 A deployed version can be visited here:
-```
-https://messenger-clone-eight-navy.vercel.app
-```
-First, run the development server:
+
+[https://messenger-clone-eight-navy.vercel.app](https://messenger-clone-eight-navy.vercel.app)
+
+
+
+# First, run the development server:
 
 ```bash
 npm run dev
