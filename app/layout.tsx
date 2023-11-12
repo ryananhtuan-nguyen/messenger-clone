@@ -4,14 +4,12 @@ import './globals.css'
 import ToasterContext from './context/ToasterContext'
 import AuthContext from './context/AuthContext'
 import ActiveStatus from './components/ActiveStatus'
+import { constructMetadata } from './libs/utils'
+import clsx from 'clsx'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Messenger Clone',
-  description: 'Messenger Clone',
-}
-
+export const metadata: Metadata = constructMetadata()
 export default function RootLayout({
   children,
 }: {
@@ -19,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={clsx('grainy', inter.className)}>
         <AuthContext>
           <ToasterContext />
           <ActiveStatus />
